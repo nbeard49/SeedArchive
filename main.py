@@ -60,6 +60,17 @@ def select_by_barcode(barcode=None):
         return i
 
 
+def backup_current(date):
+    """ Create a backup of the current database. """
+    db = create_connection(relative_to_assets(currentdb))
+    backup_db = create_connection(f"/backup/{date}.db")
+
+    db.backup(backup_db)
+
+    db.close()
+    backup_db.close()
+
+
 def update_quantity(value, barcode):
     """ Updates the quantity in the database. """
     conn = create_connection(relative_to_assets(currentdb))
